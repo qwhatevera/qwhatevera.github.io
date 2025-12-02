@@ -1,5 +1,14 @@
 name: Pages
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -37,9 +46,6 @@ jobs:
           path: ./public
   deploy:
     needs: build
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
